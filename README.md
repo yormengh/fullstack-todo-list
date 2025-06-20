@@ -7,8 +7,8 @@ This guide provides complete Docker containerization for a React/Node.js/MongoDB
 
 
 
-Setup Instructions
-Prerequisites
+## Setup Instructions
+# Prerequisites
 
 Docker (version 20.10+)
 Docker Compose (version 1.29+)
@@ -16,13 +16,13 @@ Git
 4GB+ available RAM
 10GB+ available disk space
 
-Step-by-Step Setup
+## Step-by-Step Setup
 
 Clone the Repository
 bashgit clone <your-repository-url>
 cd <repository-name>
 
-Set Up Environment Variables
+## Set Up Environment Variables
 bashcp .env.example .env
 # Edit .env file with your specific configurations
 nano .env
@@ -45,24 +45,24 @@ docker-compose ps
 curl http://localhost:3000  # Frontend
 curl http://localhost:5000/health  # Backend health check
 
-Stop Services
-bash# Stop all services
+## Stop Services
+# bash# Stop all services
 docker-compose down
 
 # Stop and remove volumes (caution: this deletes data)
 docker-compose down -v
 
 
-Network and Security Configurations
-Network Architecture
+## Network and Security Configurations
+# Network Architecture
 
 Custom Bridge Network: app-network (172.20.0.0/16)
 Service Communication: Internal DNS resolution between containers
 Port Mapping: Only necessary ports exposed to host
 
-Security Measures
+## Security Measures
 
-Database Security
+1. Database Security
 
 Admin authentication required
 No direct external access (only through backend)
@@ -70,7 +70,7 @@ Data persistence with Docker volumes
 Health checks for availability monitoring
 
 
-Backend Security
+2. Backend Security
 
 Non-root user execution
 Environment variable isolation
@@ -79,7 +79,7 @@ CORS configuration
 Health check endpoints
 
 
-Frontend Security
+3. Frontend Security
 
 Nginx security headers
 Gzip compression
@@ -88,16 +88,16 @@ Reverse proxy for API calls
 
 
 
-Exposed Ports
+# Exposed Ports
 
-Frontend: 3000 (HTTP)
-Backend: 5000 (API)
-Database: 27017 (MongoDB - for development only)
+- Frontend: 3000 (HTTP)
+- Backend: 5000 (API)
+- Database: 27017 (MongoDB - for development only)
 
-Make the script executable:
-bashchmod +x test-containers.sh
+## Make the script executable:
+- bashchmod +x test-containers.sh
 ./test-containers.sh
-Troubleshooting Guide
+## Troubleshooting Guide
 Common Issues and Solutions
 1. Port Already in Use
 Problem: Error binding to ports 3000, 5000, or 27017
