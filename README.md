@@ -32,25 +32,25 @@ bash# Build all services
 docker-compose build
 
 # Start all services in detached mode
-docker-compose up -d
+- docker-compose up -d
 
 # View logs
-docker-compose logs -f
+- docker-compose logs -f
 
-Verify Installation
-bash# Check service status
-docker-compose ps
+## Verify Installation
+# bash# Check service status
+- docker-compose ps
 
 # Test endpoints
-curl http://localhost:3000  # Frontend
-curl http://localhost:5000/health  # Backend health check
+- curl http://localhost:3000  # Frontend
+- curl http://localhost:5000/health  # Backend health check
 
 ## Stop Services
 # bash# Stop all services
-docker-compose down
+- docker-compose down
 
 # Stop and remove volumes (caution: this deletes data)
-docker-compose down -v
+- docker-compose down -v
 
 
 ## Network and Security Configurations
@@ -96,26 +96,26 @@ Reverse proxy for API calls
 
 ## Make the script executable:
 - bashchmod +x test-containers.sh
-./test-containers.sh
+- ./test-containers.sh
 ## Troubleshooting Guide
 Common Issues and Solutions
 1. Port Already in Use
 Problem: Error binding to ports 3000, 5000, or 27017
 Solution:
 bash# Check what's using the port
-lsof -i :3000
-lsof -i :5000
-lsof -i :27017
+- lsof -i :3000
+- lsof -i :5000
+- lsof -i :27017
 
 # Kill processes or change ports in docker-compose.yml
 2. Database Connection Fails
 Problem: Backend cannot connect to MongoDB
 Solutions:
 bash# Check database logs
-docker-compose logs database
+- docker-compose logs database
 
 # Verify environment variables
-docker exec app-backend env | grep MONGO
+- docker exec app-backend env | grep MONGO
 
 # Test connection manually
 docker exec app-backend mongosh $MONGODB_URI
@@ -131,7 +131,7 @@ Test backend endpoint directly: curl http://localhost:5000/health
 Problem: Docker build fails
 Solutions:
 bash# Clear Docker cache
-docker system prune -a
+- docker system prune -a
 
 # Build with no cache
 docker-compose build --no-cache
@@ -141,7 +141,7 @@ docker-compose build --no-cache
 Problem: Containers crashing due to memory
 Solutions:
 bash# Check container resource usage
-docker stats
+- docker stats
 
 # Increase Docker memory limit in Docker Desktop
 # Add memory limits to docker-compose.yml:
@@ -155,34 +155,34 @@ services:
 Problem: Permission denied errors with volumes
 Solutions:
 bash# Fix volume permissions
-sudo chown -R $USER:$USER ./backend/logs
+- sudo chown -R $USER:$USER ./backend/logs
 
 # Or run containers with specific user
 user: "${UID}:${GID}"
 Debugging Commands
 bash# View all container logs
-docker-compose logs
+- docker-compose logs
 
 # View specific service logs
-docker-compose logs backend -f
+- docker-compose logs backend -f
 
 # Execute commands in containers
-docker exec -it app-backend bash
-docker exec -it app-database mongosh
+- docker exec -it app-backend bash
+- docker exec -it app-database mongosh
 
 # Inspect container details
-docker inspect app-backend
+- docker inspect app-backend
 
 # View container resource usage
-docker stats
+- docker stats
 
 # Test network connectivity between containers
-docker exec app-backend ping database
-docker exec app-frontend ping backend
+- docker exec app-backend ping database
+- docker exec app-frontend ping backend
 
 # Check if backend is listening on correct port
-docker exec app-backend netstat -tulpn | grep :5000
-docker exec app-backend ss -tulpn | grep :5000
+- docker exec app-backend netstat -tulpn | grep :5000
+- docker exec app-backend ss -tulpn | grep :5000
 
 # Test backend endpoint from inside container
 docker exec app-backend curl -f http://localhost:5000/health
@@ -194,25 +194,25 @@ bash# Check if backend is binding to 0.0.0.0 (not just localhost)
 docker exec app-backend netstat -tulpn | grep 5000
 3. Test Backend Health Check:
 bash# Test from host
-curl -v http://localhost:5000/health
+- curl -v http://localhost:5000/health
 
 # Test from inside backend container
-docker exec app-backend curl -v http://localhost:5000/health
+- docker exec app-backend curl -v http://localhost:5000/health
 
 # Test from frontend container
 docker exec app-frontend curl -v http://backend:5000/health
 4. Check Environment Variables:
-bashdocker exec app-backend env | grep -E "(PORT|NODE_ENV|MONGODB)"
-Health Check Commands
+- bashdocker exec app-backend env | grep -E "(PORT|NODE_ENV|MONGODB)"
+# Health Check Commands
 bash# Check all services are healthy
-docker-compose ps
+- docker-compose ps
 
 # Manual health checks
-curl -f http://localhost:3000 || echo "Frontend unhealthy"
-curl -f http://localhost:5000/health || echo "Backend unhealthy"
-docker exec app-database mongosh --eval "db.adminCommand('ping')" || echo "Database unhealthy"
-Performance Optimization Tips
+- curl -f http://localhost:3000 || echo "Frontend unhealthy"
+- curl -f http://localhost:5000/health || echo "Backend unhealthy"
+- docker exec app-database mongosh --eval -----"db.adminCommand('ping')" || echo "Database unhealthy"
 
+## Performance Optimization Tips
 Multi-stage builds for smaller images
 Layer caching by copying package.json first
 Health checks for better orchestration
