@@ -1,22 +1,10 @@
 3-Tier Application Containerization Guide
 This guide provides complete Docker containerization for a React/Node.js/MongoDB application with all necessary configurations, documentation, and testing scripts.
-Project Structure
-project-root/
-├── frontend/
-│   ├── Dockerfile
-│   ├── package.json
-│   └── src/
-├── backend/
-│   ├── Dockerfile
-│   ├── package.json
-│   └── src/
-├── docker-compose.yml
-├── .env
-├── README.md
-├── test-containers.sh
-└── docker/
-    └── mongodb/
-        └── init-mongo.js
+
+### Project Structure
+![Project Structure](./images/Project%20Structure.png)
+
+
 
 
 Setup Instructions
